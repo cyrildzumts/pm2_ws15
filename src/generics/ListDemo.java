@@ -4,10 +4,9 @@ public class ListDemo {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+
 		AbstractList<Integer> list = new ConcreteArrayList<Integer>(10);
-		System.out.println(" List size : " + list.size());
-		
+		// Ein paar werte weren in die Liste gelegt
 		for(int i = 0; i < 5; i++){
 			try{
 				list.insert(i, i);
@@ -16,46 +15,51 @@ public class ListDemo {
 				error.printStackTrace();
 			}
 		}
-		System.out.println(" List size 2 : " + list.size());
-		
+		System.out.println();
+		// Die Liste wir in der Console angezeigt
 		for(int i = 0 ; i < list.size(); i++){
 			try{
 				System.out.print(list.retrieve(i) + " - ");
 			}
-			
+
 			catch(IndexOutOfBoundsException error){
 				error.printStackTrace();
 			}
 		}
-		System.out.println("\nContainer Size : " +  list.size());
-	
-	try{
-		list.insert(2, 3);
-	}
-	catch(IndexOutOfBoundsException error){
-		error.printStackTrace();
-	}
-	
-	for(int i = 0 ; i < list.size(); i++){
+		System.out.println();
+		// Ein neue Objekt wird in die Liste  an der Stelle 2 gelegt
 		try{
-			System.out.print("- " + list.retrieve(i) );
+			list.insert(2, 3);
 		}
-		
 		catch(IndexOutOfBoundsException error){
 			error.printStackTrace();
 		}
-	}
-	System.out.println("\nContainer Size : " +  list.size());
-	
-	int i = list.find(1);
-	System.out.println("Index is : " + i);
-		try{
-			System.out.print("- " + list.retrieve(i) + "\n" );
+
+		for(int i = 0 ; i < list.size(); i++){
+			try{
+				System.out.print("- " + list.retrieve(i) );
+			}
+
+			catch(IndexOutOfBoundsException error){
+				error.printStackTrace();
+			}
 		}
-		
+		System.out.println();
+		// AbstrackList.find(int pos) liefert -1 wenn er nichts gefunden hat.
+		// Man könnte schon prüfen ob index gültig ist. Es gibt aber einen Fehler 
+		// in der Implementierung von find(), Als Übung du könntest diesen Fehler suchen
+		// und korrigieren :)
+		int index = list.find(1);
+		try{
+			System.out.println(" Objekt gefunden :  " + list.retrieve(index) );
+		}
 		catch(IndexOutOfBoundsException error){
 			error.printStackTrace();
 		}
+		System.out.println();
+		/*
+		 *  Das Objekt mit dem index 2 wird von der Liste entfernt.
+		 */
 		try{
 			list.delete(2);
 		}
@@ -66,11 +70,10 @@ public class ListDemo {
 			try{
 				System.out.print("- " + list.retrieve(k) );
 			}
-			
+
 			catch(IndexOutOfBoundsException error){
 				error.printStackTrace();
 			}
 		}
-		System.out.println("\nContainer Size : " +  list.size());
 	}
 }
