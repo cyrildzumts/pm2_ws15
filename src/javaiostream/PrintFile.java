@@ -26,8 +26,7 @@ public class PrintFile {
 		final int EOF = -1;
 		FileInputStream input = null;
 		if(args.length != 1){
-			System.out.println("Usage: java PrintFile filepath");
-			System.out.println( " Args length : " + args.length);
+			System.out.println("Usage: java path/zu/PrintFile path/zu/filepath");
 			return;
 		}
 		// Opening and reading
