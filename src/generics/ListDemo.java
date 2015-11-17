@@ -3,7 +3,6 @@ package generics;
 public class ListDemo {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 		AbstractList<Integer> list = new ConcreteArrayList<Integer>(10);
 		// Ein paar werte weren in die Liste gelegt
@@ -19,7 +18,9 @@ public class ListDemo {
 		// Die Liste wir in der Console angezeigt
 		for(int i = 0 ; i < list.size(); i++){
 			try{
-				System.out.print(list.retrieve(i) + " - ");
+				System.out.print( list.retrieve(i) );
+				if(i + 1 < list.size())
+					System.out.print(" - ");
 			}
 
 			catch(IndexOutOfBoundsException error){
@@ -37,7 +38,9 @@ public class ListDemo {
 
 		for(int i = 0 ; i < list.size(); i++){
 			try{
-				System.out.print("- " + list.retrieve(i) );
+				System.out.print( list.retrieve(i) );
+				if(i + 1 < list.size())
+					System.out.print(" - ");
 			}
 
 			catch(IndexOutOfBoundsException error){
@@ -49,7 +52,7 @@ public class ListDemo {
 		// Man könnte schon prüfen ob index gültig ist. Es gibt aber einen Fehler 
 		// in der Implementierung von find(), Als Übung du könntest diesen Fehler suchen
 		// und korrigieren :)
-		int index = list.find(1);
+		int index = list.find(4);
 		try{
 			System.out.println(" Objekt gefunden :  " + list.retrieve(index) );
 		}
@@ -66,14 +69,22 @@ public class ListDemo {
 		catch(IndexOutOfBoundsException error){
 			error.printStackTrace();
 		}
+		System.out.println("Iterable :");
+		for(Integer i : list){
+			System.out.print("- " + i );
+		}
+		System.out.println("\n Not Iterable :");
 		for(int k = 0 ; k < list.size(); k++){
 			try{
-				System.out.print("- " + list.retrieve(k) );
+				System.out.print( list.retrieve(k) );
+				if(k + 1 < list.size())
+					System.out.print(" - ");
 			}
 
 			catch(IndexOutOfBoundsException error){
 				error.printStackTrace();
 			}
 		}
+		
 	}
 }

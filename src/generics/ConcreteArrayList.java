@@ -7,6 +7,8 @@
 
 package generics;
 
+import java.util.Iterator;
+
 @SuppressWarnings("unchecked")
 public class ConcreteArrayList<Item> implements AbstractList<Item>{
 
@@ -66,7 +68,7 @@ public class ConcreteArrayList<Item> implements AbstractList<Item>{
 		while(container[i] != item){
 			i--;
 		}
-		return i > 0 ? i -1 : i;
+		return (i -1);
 	}
 
 	@Override
@@ -107,5 +109,29 @@ public class ConcreteArrayList<Item> implements AbstractList<Item>{
 		if ((lowBound < INDEX_LOWER_BOUND)|| (lowBound >= upperBound)) {
 			throw new IndexOutOfBoundsException("Index " + (lowBound - 1) + " is out of bound");
 		}
+	}
+
+
+	@Override
+	public Iterator<Item> iterator() {
+		Iterator<Item> it = new Iterator<Item>(){
+			int currentIndex = INDEX_LOWER_BOUND;
+			@Override
+			public boolean hasNext() {
+				return ( (currentIndex <= count) && (container[currentIndex] != null));
+			}
+
+			@Override
+			public Item next() {
+				return container[currentIndex++];
+			}
+			
+			@Override
+			public void remove(){
+				throw new UnsupportedOperationException();
+			}
+			
+		};
+		return it;
 	}
 }

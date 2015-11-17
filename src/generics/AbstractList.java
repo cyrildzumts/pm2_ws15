@@ -24,7 +24,7 @@
 
 package generics;
 
-public interface AbstractList<Item> {
+public interface AbstractList<Item> extends Iterable<Item>{
 	/**
 	 * Add item into the list at the given index pos.
 	 * In case of no room for item, the list
