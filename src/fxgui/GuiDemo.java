@@ -2,7 +2,6 @@ package fxgui;
 import java.util.Arrays;
 import java.util.List;
 
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -14,8 +13,10 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -47,9 +48,15 @@ public class GuiDemo extends Application {
 	private Button validate;
 	private Button cancel;
 	private List<String> addItemsList;
-
+	private AnchorPane anchorPane;
+	private TextField courseTitle;
+	private TextField profFirstname;
+	private TextField profLastName;
+	private TextArea descriptionArea;
+	private double labelwidth;
+	private double labelHeight;
 	public static void main(String[] args) {
-		Application.launch(args);
+		launch(args);
 
 	}
 
@@ -57,8 +64,18 @@ public class GuiDemo extends Application {
 	public void start(Stage stage) throws Exception {
 		addItemsList = Arrays.asList("Course", "Labor", "Homework", "Exam", "Notice");
 		layout = new VBox(10);
+		courseTitle = new TextField();
+		profFirstname = new TextField();
+		profLastName = new TextField();
+		descriptionArea = new TextArea();
+		courseTitle.setPrefWidth(150);
+		profFirstname.setPrefWidth(150);
+		profLastName.setPrefWidth(150);
+		labelwidth = 80;
+		labelHeight = 20;
+		
 		layout.setPadding(new Insets(20));
-		layout.setStyle("-fx-background: #3FB8B3");
+		layout.setStyle("-fx-background: #615C8D");
 		Text title = new Text("Add Course");
 		layout.getChildren().add(title);
 		// Dropdown Menu to choose the Item to add.
@@ -66,19 +83,34 @@ public class GuiDemo extends Application {
 		ChoiceBox<String> dropmenu = new ChoiceBox<>();
 		dropmenu.getItems().addAll(addItemsList);
 		dropMenuLayout.getChildren().add(dropmenu);
-		dropmenu.setStyle("-fx-background-color: #A9C8D0");
+		dropmenu.setStyle("-fx-background-color: #8F618F");
 		
 		
 		// Course Title Entry
 		VBox titleLayout = new VBox(10);
-		titleLayout.getChildren().add(new Label("Title"));
-		titleLayout.getChildren().add(new TextField("Enter the title here..."));
+		Label courseTitleLabel = new Label("Title :");
+		courseTitleLabel.setMinSize(labelwidth, labelHeight);
+		courseTitleLabel.setMaxSize(labelwidth, labelHeight);
+		courseTitleLabel.setPrefSize(labelwidth, labelHeight);
+		titleLayout.getChildren().add(new Label("Course :"));
+		titleLayout.getChildren().add(new HBox(10, courseTitleLabel,courseTitle));
 		// Professor Entry
 		VBox professorLayout = new VBox(10);
-		professorLayout.getChildren().add(new Label("Professor"));
-		professorLayout.getChildren().add(new TextField("Professor firstname"));
-		professorLayout.getChildren().add(new TextField("Professor lastname"));
+		professorLayout.setPrefWidth(280.0);
+		professorLayout.setMaxWidth(300.0);
+		professorLayout.getChildren().add(new Label("Professor :"));
+		Label firstnameLabel = new Label("Firstname :");
+		Label lastnameLabel = new Label("Lastname :");
+		firstnameLabel.setPrefSize(labelwidth, labelHeight);
+		firstnameLabel.setMaxSize(labelwidth, labelHeight);
+		firstnameLabel.setPrefSize(labelwidth, labelHeight);
 		
+		lastnameLabel.setPrefSize(labelwidth, labelHeight);
+		lastnameLabel.setMaxSize(labelwidth, labelHeight);
+		lastnameLabel.setPrefSize(labelwidth, labelHeight);
+		
+		professorLayout.getChildren().add(new HBox(10, firstnameLabel,profFirstname));
+		professorLayout.getChildren().add(new HBox(10, lastnameLabel, profLastName));
 		// Calender Entry
 		String itemStartEndDate = "Start: 08:15 - End: 11:30";
 		String [] dayLabels = {"Mo", "Tu", "We", "Th", "Fr"};
@@ -91,17 +123,25 @@ public class GuiDemo extends Application {
 		// Description Entry
 		VBox descriptionLayout = new VBox(10);
 		descriptionLayout.getChildren().add(new Label ("Description"));
-		descriptionLayout.getChildren().add(new TextArea (" Enter the Course's Description here"));
+		descriptionLayout.getChildren().add(descriptionArea);
 		validate = new Button("Add");
 		cancel = new Button("Cancel");
 		cancel.setStyle("-fx-base: #E84144");
-		validate.setStyle("-fx-base: #3FB8B3");
+		validate.setStyle("-fx-base: #615C8D");
 		HBox buttons = new HBox(20, cancel, validate);
 		cancel.setOnAction(e-> Platform.exit());
 		validate.setOnAction(e-> Platform.exit());
 		layout.getChildren().addAll(dropMenuLayout,titleLayout,professorLayout,coursePlanLayout,descriptionLayout, buttons);
-
-		scene = new Scene(layout, 300, 600);
+//		anchorPane = new AnchorPane();
+//		AnchorPane.setLeftAnchor(layout, 10.0);
+//		AnchorPane.setBottomAnchor(layout, 10.0);
+//		AnchorPane.setTopAnchor(layout, 10.0);
+//		AnchorPane.setRightAnchor(layout, 10.0);
+//		AnchorPane.setRightAnchor(buttons, 10.0);
+//		AnchorPane.setBottomAnchor(buttons, 20.0);
+//		anchorPane.getChildren().addAll(layout, buttons);
+//		anchorPane.setStyle("-fx-background: #3FB8B3");
+		scene = new Scene(layout, 350, 600);
 		stage.setScene(scene);
 		stage.setTitle("Add Course Form");
 		stage.show();
