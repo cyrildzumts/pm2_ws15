@@ -42,19 +42,59 @@ import javafx.stage.Stage;
  */
 public class GuiDemo extends Application {
 	
+	/**
+	 * Root layout of our Stage
+	 */
 	private VBox layout;
 	//private Group core;
+	/**
+	 * The Scene of our Stage
+	 */
 	private Scene scene;
+	/**
+	 * our validate button 
+	 * Clicking on it will close the application
+	 */
 	private Button validate;
+	/**
+	 * our cancel button
+	 * Clicking on it will close the application
+	 */
 	private Button cancel;
+	/**
+	 * A list of items to add.
+	 * It will be the model of our ComboxBox.
+	 * We could use an Observable List too.
+	 */
 	private List<String> addItemsList;
-	private AnchorPane anchorPane;
+	//private AnchorPane anchorPane;
+	/**
+	 * In this Field we will set the Course 
+	 * Title
+	 */
 	private TextField courseTitle;
+	/**
+	 * This TextField holds the Professor Firstname
+	 */
 	private TextField profFirstname;
+	/**
+	 * This TextField holds the Professor Lastname
+	 */
 	private TextField profLastName;
+	/**
+	 * This TextField holds the description of the choosen to Add
+	 */
 	private TextArea descriptionArea;
+	/**
+	 * Default Label Width
+	 */
 	private double labelwidth;
+	/**
+	 * Default Label height
+	 */
 	private double labelHeight;
+	
+	
 	public static void main(String[] args) {
 		launch(args);
 
@@ -64,6 +104,8 @@ public class GuiDemo extends Application {
 	public void start(Stage stage) throws Exception {
 		addItemsList = Arrays.asList("Course", "Labor", "Homework", "Exam", "Notice");
 		layout = new VBox(10);
+		layout.setPadding(new Insets(20));
+		layout.setStyle("-fx-background: #615C8D");
 		courseTitle = new TextField();
 		profFirstname = new TextField();
 		profLastName = new TextField();
@@ -74,8 +116,6 @@ public class GuiDemo extends Application {
 		labelwidth = 80;
 		labelHeight = 20;
 		
-		layout.setPadding(new Insets(20));
-		layout.setStyle("-fx-background: #615C8D");
 		Text title = new Text("Add Course");
 		layout.getChildren().add(title);
 		// Dropdown Menu to choose the Item to add.
@@ -121,6 +161,10 @@ public class GuiDemo extends Application {
 		}
 		
 		// Description Entry
+		/**
+		 * descriptionLayout is used as a couńtainer
+		 * for the Description
+		 */
 		VBox descriptionLayout = new VBox(10);
 		descriptionLayout.getChildren().add(new Label ("Description"));
 		descriptionLayout.getChildren().add(descriptionArea);
@@ -129,8 +173,14 @@ public class GuiDemo extends Application {
 		cancel.setStyle("-fx-base: #E84144");
 		validate.setStyle("-fx-base: #615C8D");
 		HBox buttons = new HBox(20, cancel, validate);
+		/*
+		 * Defining some Listener (Observer)
+		 * when the user clicks on those buttons
+		 */
 		cancel.setOnAction(e-> Platform.exit());
 		validate.setOnAction(e-> Platform.exit());
+		
+		
 		layout.getChildren().addAll(dropMenuLayout,titleLayout,professorLayout,coursePlanLayout,descriptionLayout, buttons);
 //		anchorPane = new AnchorPane();
 //		AnchorPane.setLeftAnchor(layout, 10.0);
